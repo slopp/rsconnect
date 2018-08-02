@@ -416,6 +416,9 @@ httpCurl <- function(protocol,
   if (httpVerbose())
     command <- paste(command, "-v")
 
+  if (followRedirects())
+    command <- paste(command, "-L")
+
   if (!is.null(timeout))
     command <- paste(command, "--connect-timeout", timeout)
 
@@ -635,6 +638,10 @@ httpRCurl <- function(protocol,
 
 httpVerbose <- function() {
   getOption("rsconnect.http.verbose", FALSE)
+}
+
+followRedirects <- function() {
+  getOption("rsconnect.http.redirects", FALSE)
 }
 
 httpTraceJson <- function() {
